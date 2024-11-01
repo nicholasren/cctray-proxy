@@ -1,0 +1,4 @@
+target/
+.idea/
+config/repos.json
+Cargo.lock

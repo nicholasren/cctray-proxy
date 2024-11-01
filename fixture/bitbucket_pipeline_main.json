@@ -1,0 +1,91 @@
+{
+  "uuid": "{71b7874c-edd6-4a6c-a2a2-c3fc144ef9d0}",
+  "repository": {
+    "type": "repository",
+    "full_name": "atlassian/adr-backup-monitoring",
+    "links": {
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/repositories/atlassian/adr-backup-monitoring"
+      },
+      "html": {
+        "href": "https://bitbucket.org/atlassian/adr-backup-monitoring"
+      },
+      "avatar": {
+        "href": "https://bytebucket.org/ravatar/%7B53a9cc2e-14ce-418f-aa93-912e6a1d5524%7D?ts=default"
+      }
+    },
+    "name": "adr-backup-monitoring",
+    "uuid": "{53a9cc2e-14ce-418f-aa93-912e6a1d5524}"
+  },
+  "state": {
+    "name": "COMPLETED",
+    "type": "pipeline_state_completed",
+    "result": {
+      "name": "SUCCESSFUL",
+      "type": "pipeline_state_completed_successful"
+    }
+  },
+  "build_number": 19442,
+  "creator": {
+    "display_name": "Xiaojun Ren",
+    "links": {
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/users/%7Bbec9d7aa-0954-4f5d-b144-efaa832c0f42%7D"
+      },
+      "avatar": {
+        "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/XR-6.png"
+      },
+      "html": {
+        "href": "https://bitbucket.org/%7Bbec9d7aa-0954-4f5d-b144-efaa832c0f42%7D/"
+      }
+    },
+    "type": "user",
+    "uuid": "{bec9d7aa-0954-4f5d-b144-efaa832c0f42}",
+    "account_id": "5fb5001147ac91006f5f80d9",
+    "nickname": "Xiaojun Ren"
+  },
+  "created_on": "2024-10-23T05:42:25.333533879Z",
+  "completed_on": "2024-10-23T06:44:03.199724319Z",
+  "target": {
+    "ref_type": "branch",
+    "ref_name": "main",
+    "selector": {
+      "type": "branches",
+      "pattern": "main"
+    },
+    "commit": {
+      "hash": "7ec00775bc05dac2b54cb4a5cb88d3ffb88024fb",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/atlassian/adr-backup-monitoring/commit/7ec00775bc05dac2b54cb4a5cb88d3ffb88024fb"
+        },
+        "html": {
+          "href": "https://bitbucket.org/atlassian/adr-backup-monitoring/commits/7ec00775bc05dac2b54cb4a5cb88d3ffb88024fb"
+        }
+      },
+      "type": "commit"
+    },
+    "type": "pipeline_ref_target"
+  },
+  "trigger": {
+    "name": "PUSH",
+    "type": "pipeline_trigger_push"
+  },
+  "run_number": 1,
+  "run_creation_date": "2024-10-23T05:42:25.33845489Z",
+  "duration_in_seconds": 3524,
+  "build_seconds_used": 11119,
+  "first_successful": false,
+  "expired": false,
+  "links": {
+    "self": {
+      "href": "https://api.bitbucket.org/2.0/repositories/atlassian/adr-backup-monitoring/pipelines/%7B71b7874c-edd6-4a6c-a2a2-c3fc144ef9d0%7D"
+    },
+    "steps": {
+      "href": "https://api.bitbucket.org/2.0/repositories/atlassian/adr-backup-monitoring/pipelines/%7B71b7874c-edd6-4a6c-a2a2-c3fc144ef9d0%7D/steps"
+    }
+  },
+  "has_variables": false,
+  "labels": {},
+  "type": "pipeline"
+}
