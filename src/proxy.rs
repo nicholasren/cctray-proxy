@@ -2,10 +2,14 @@ use axum::{routing::get, Router};
 use axum::response::IntoResponse;
 use crate::{config, pipeline_fetcher};
 use crate::pipeline::Pipeline;
+use axum_response_cache::CacheLayer;
 
 pub async fn start(addr: &str) {
     let app = Router::new()
-        .route("/cctray.xml", get(handler));
+        .route(
+            "/cctray.xml",
+            get(handler).layer(CacheLayer::with_lifespan(60)),
+        );
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
