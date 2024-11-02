@@ -41,11 +41,10 @@ pub fn parse(content: &String) -> Vec<Pipeline> {
 fn latest_build_of(pipelines: Vec<Pipeline>) -> Pipeline {
     let latest = pipelines
         .iter()
-        .max_by_key(|pipeline: &&Pipeline| pipeline.name())
+        .max_by_key(|pipeline: &&Pipeline| pipeline.build_time())
         .unwrap();
 
-    let x: Pipeline = latest.clone();
-    x
+    latest.clone()
 }
 
 #[cfg(test)]

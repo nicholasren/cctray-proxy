@@ -1,5 +1,5 @@
+use chrono::{DateTime, Utc};
 use serde_json::Value;
-
 #[derive(Debug, Clone)]
 pub struct Pipeline {
     pub(crate) data: Value,
@@ -8,26 +8,26 @@ pub struct Pipeline {
 impl Pipeline {
     pub fn pipeline_type(self: &Pipeline) -> &str {
         let target = &self.data["target"];
-        if crate::json::has_value_by_key(target, "ref_type", "branch")
-            && crate::json::has_value_by_key(target, "ref_name", "main")
-            && crate::json::has_value_by_keys(target, "selector", "type", "branches")
+        if crate::json::has_value_by_one_key(target, "ref_type", "branch")
+            && crate::json::has_value_by_one_key(target, "ref_name", "main")
+            && crate::json::has_value_by_two_keys(target, "selector", "type", "branches")
         {
             "main"
-        } else if crate::json::has_value_by_keys(target, "selector", "type", "custom") {
+        } else if crate::json::has_value_by_two_keys(target, "selector", "type", "custom") {
             "custom"
         } else {
             "unknown"
         }
     }
     pub fn repo_name(self: &Pipeline) -> &str {
-        crate::json::string_value_by_keys(&self.data, "repository", "name")
+        crate::json::string_value_by_two_keys(&self.data, "repository", "name")
     }
     pub fn name(self: &Pipeline) -> String {
         let target = &self.data["target"];
         if self.pipeline_type() == "main" {
             format!("[{repo_name}] pipeline:main", repo_name = self.repo_name()).clone()
         } else if self.pipeline_type() == "custom" {
-            let pipeline_name = crate::json::string_value_by_keys(target, "selector", "pattern");
+            let pipeline_name = crate::json::string_value_by_two_keys(target, "selector", "pattern");
             format!("[{repo_name}] pipeline:custom:{custom_pipeline_name}", repo_name = self.repo_name(), custom_pipeline_name = pipeline_name).clone()
         } else {
             format!("[{repo_name}] pipeline:unknown", repo_name = self.repo_name())
@@ -42,49 +42,57 @@ impl Pipeline {
     }
 
     pub fn creator(self: &Pipeline) -> &str {
-        crate::json::string_value_by_keys(&self.data, "creator", "display_name")
+        crate::json::string_value_by_two_keys(&self.data, "creator", "display_name")
     }
 
+    // pub fn state_name(self: &Pipeline) -> &str {
+    //     crate::json::string_value_by_two_keys(&self.data, "state", "name")
+    // }
+
     pub fn activity(self: &Pipeline) -> &str {
-        let state_name = crate::json::string_value_by_keys(&self.data, "state", "name");
-        if state_name == "IN_PROGRESS" {
+        if self.in_progress() {
             "Building"
-        } else if state_name == "COMPLETED" {
+        } else if self.completed() {
             "Sleeping"
         } else {
             "CheckingModifications"
         }
     }
-    pub fn last_build_status(self: &Pipeline) -> &str {
-        if self.activity() == "Building" {
-            let state = &self.data["state"];
-            let state_result = crate::json::string_value_by_keys(state, "result", "name");
 
-            if state_result == "SUCCESSFUL" {
+
+    pub fn last_build_status(self: &Pipeline) -> &str {
+        if self.completed() {
+            if self.successful() {
                 "Success"
-            } else if state_result == "FAILED" {
+            } else if self.failed() {
                 "Failure"
             } else {
                 "Unknown"
             }
-        } else if self.activity() == "Sleeping" {
+        } else if self.in_progress() {
             "Building"
         } else {
             "unknown"
         }
     }
-    pub fn last_build_label(self: &Pipeline) -> String {
+    pub fn build_label(self: &Pipeline) -> String {
         format!("by:{}, duration,{}", self.creator(), self.duration())
     }
-    pub fn last_build_time(self: &Pipeline) -> &str {
+    pub fn build_time_in_string(self: &Pipeline) -> &str {
         self.data["created_on"].as_str().unwrap()
     }
     pub fn web_url(self: &Pipeline) -> &str {
         ""
     }
-
     pub fn supported(self: &Pipeline) -> bool {
         self.pipeline_type() != "unknown"
+    }
+
+    pub fn build_time(self: &Pipeline) -> DateTime<Utc> {
+        let time = self.build_time_in_string();
+        DateTime::parse_from_rfc3339(time)
+            .expect(format!("unable to parse build time {}", time).as_str())
+            .to_utc()
     }
 
     pub fn to_xml(self: &Pipeline) -> String {
@@ -96,13 +104,42 @@ impl Pipeline {
             activity="{}"
             lastBuildStatus="{}"
             />"#,
-                self.last_build_label(),
-                self.last_build_time(),
+                self.build_label(),
+                self.build_time_in_string(),
                 self.name(),
                 self.web_url(),
                 self.activity(),
                 self.last_build_status()
         )
+    }
+
+    fn in_progress(self: &Pipeline) -> bool {
+        crate::json::has_value_by_two_keys(&self.data,
+                                           "state",
+                                           "name",
+                                           "IN_PROGRESS")
+    }
+    fn completed(self: &Pipeline) -> bool {
+        crate::json::has_value_by_two_keys(&self.data,
+                                           "state",
+                                           "name",
+                                           "COMPLETED")
+    }
+
+    fn successful(self: &Pipeline) -> bool {
+        crate::json::has_value_by_three_keys(&self.data,
+                                             "state",
+                                             "result",
+                                             "name",
+                                             "SUCCESSFUL")
+    }
+
+    fn failed(self: &Pipeline) -> bool {
+        crate::json::has_value_by_three_keys(&self.data,
+                                             "state",
+                                             "result",
+                                             "name",
+                                             "FAILED")
     }
 }
 
@@ -110,7 +147,6 @@ impl Pipeline {
 #[cfg(test)]
 mod tests {
     use crate::pipeline_loader;
-    use super::*;
 
     #[test]
     fn parse_from() {
