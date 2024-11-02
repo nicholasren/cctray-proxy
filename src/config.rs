@@ -1,7 +1,7 @@
 use std::fs;
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Config {
     pub id: String,
     pub bearer_token: String,
