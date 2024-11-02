@@ -1,6 +1,7 @@
 use axum::{routing::get, Router};
 use axum::response::IntoResponse;
 use crate::{config, pipeline_fetcher};
+use crate::pipeline::Pipeline;
 
 pub async fn start(addr: &str) {
     let app = Router::new()
@@ -12,10 +13,15 @@ pub async fn start(addr: &str) {
 
 async fn handler() -> impl IntoResponse {
     let configs = config::load();
-    let config = configs.first().unwrap();
-    let pipelines = pipeline_fetcher::fetch(&config.id, &config.bearer_token).await;
+    let mut all: Vec<Pipeline> = vec![];
 
-    let pipelines_in_xml = pipelines.iter()
+    for config in &configs {
+        let pipelines = pipeline_fetcher::fetch(&config.id, &config.bearer_token).await;
+        all.extend(pipelines);
+    }
+
+    let pipelines_in_xml = all
+        .iter()
         .map(|pipeline| pipeline.to_xml())
         .collect::<Vec<_>>().join("\n");
 
