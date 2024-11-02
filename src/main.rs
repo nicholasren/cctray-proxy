@@ -11,8 +11,8 @@ struct Cli {
 
 #[tokio::main]
 async fn main() {
-    let args = Cli::parse();
-    println!("Using config path: {:?}", args.config_path);
+    // let args = Cli::parse();
+    // println!("Using config path: {:?}", args.config_path);
 
-    proxy::start().await;
+    proxy::start("0.0.0.0:3000").await;
 }

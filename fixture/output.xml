@@ -1,0 +1,31 @@
+<Projects>
+    <Project lastBuildLabel="by:(Gildas Le Nadan), duration: 0 min 17 sec" lastBuildTime="2024-11-01T06:54:38Z"
+             name="[adr-backup-monitoring] custom pipeline:copy-clumio-inventories" webUrl="" activity="Sleeping"
+             lastBuildStatus="Failure"/>
+    <Project lastBuildLabel="by:(Gildas Le Nadan), duration: 55 min 43 sec" lastBuildTime="2024-11-01T06:15:29Z"
+             name="[adr-backup-monitoring] pipeline:main" webUrl="" activity="Sleeping" lastBuildStatus="Success"/>
+    <Project lastBuildLabel="by:(Gildas Le Nadan), duration: 0 min 23 sec" lastBuildTime="2024-10-30T02:41:36Z"
+             name="[adr-backup-monitoring] custom pipeline:unlock-state-commercial-dev" webUrl="" activity="Sleeping"
+             lastBuildStatus="Failure"/>
+    <Project lastBuildLabel="by:(Bhavik Kumar), duration: 17 min 2 sec" lastBuildTime="2024-10-30T20:42:05Z"
+             name="[backup-validator] pipeline:main" webUrl="" activity="Sleeping" lastBuildStatus="Failure"/>
+    <Project lastBuildLabel="by:(Ken Kwan), duration: 52 min 23 sec" lastBuildTime="2024-10-23T23:48:48Z"
+             name="[backup-validator] custom pipeline:deploy-dev-and-run-e2e-test" webUrl="" activity="Sleeping"
+             lastBuildStatus="Failure"/>
+    <Project lastBuildLabel="by:(Ken Kwan), duration: 2 min 39 sec" lastBuildTime="2024-10-16T21:45:13Z"
+             name="[backup-validator] custom pipeline:deploy-stg-east" webUrl="" activity="Sleeping"
+             lastBuildStatus="Failure"/>
+    <Project lastBuildLabel="by:(Bhavik Kumar), duration: 55 min 54 sec" lastBuildTime="2024-10-31T04:05:33Z"
+             name="[adr-infrastructure] pipeline:main" webUrl="" activity="Sleeping" lastBuildStatus="Success"/>
+    <Project lastBuildLabel="by:(Xiaojun Ren), duration: 0 min 35 sec" lastBuildTime="2024-10-22T23:46:34Z"
+             name="[adr-infrastructure] custom pipeline:cleanup-inventory-config" webUrl="" activity="Sleeping"
+             lastBuildStatus="Success"/>
+    <Project lastBuildLabel="by:(Andrew Burden), duration: 82 min 26 sec" lastBuildTime="2024-10-31T02:03:07Z"
+             name="[svalbard-api] pipeline:main" webUrl="" activity="Sleeping" lastBuildStatus="Success"/>
+    <Project lastBuildLabel="by:(Xiaojun Ren), duration: 2 min 56 sec" lastBuildTime="2024-10-09T23:29:04Z"
+             name="[svalbard-api] custom pipeline:deploy-poco-policy" webUrl="" activity="Sleeping"
+             lastBuildStatus="Success"/>
+    <Project lastBuildLabel="by:(Xiaojun Ren), duration: 1 min 13 sec" lastBuildTime="2024-10-09T05:09:58Z"
+             name="[svalbard-api] custom pipeline:deploy-poco-policy-platdev" webUrl="" activity="Sleeping"
+             lastBuildStatus="Success"/>
+</Projects>
