@@ -1,5 +1,5 @@
 use axum::{routing::get, Router};
-use crate::{config, pipeline};
+use crate::{config, pipeline_fetcher};
 
 pub async fn start(addr: &str) {
     let app = Router::new()
@@ -12,7 +12,7 @@ pub async fn start(addr: &str) {
 async fn handler() -> String {
     let configs = config::load();
     let config = configs.first().unwrap();
-    let pipelines = pipeline::fetch(&config.id, &config.bearer_token).await;
+    let pipelines = pipeline_fetcher::fetch(&config.id, &config.bearer_token).await;
 
     let pipelines_in_xml = pipelines.iter()
         .map(|pipeline| pipeline.to_xml())

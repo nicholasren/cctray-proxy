@@ -2,6 +2,9 @@ mod config;
 mod pipeline;
 mod json;
 mod proxy;
+mod pipeline_fetcher;
+mod pipeline_loader;
+
 use clap::Parser;
 
 #[derive(Parser)]
