@@ -84,6 +84,10 @@ impl Pipeline {
             "unknown"
         }
     }
+
+    pub fn to_xml(self: &Pipeline) -> String {
+        format!("{:?}", self)
+    }
 }
 
 pub async fn fetch(repo_id: &str, token: &str) -> Vec<Pipeline> {
