@@ -1,14 +1,14 @@
 use axum::{routing::get, Router};
 use axum::extract::State;
 use axum::response::IntoResponse;
-use crate::{config, pipeline_fetcher};
+use crate::pipeline_fetcher;
 use crate::pipeline::Pipeline;
 use axum_response_cache::CacheLayer;
 use crate::config::Config;
 
 pub struct ProxyServer {
     pub addr: &'static str,
-    pub configs: Vec<config::Config>,
+    pub configs: Vec<Config>,
 }
 impl ProxyServer {
     pub async fn start(self: &ProxyServer) {

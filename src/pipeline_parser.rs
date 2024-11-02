@@ -3,17 +3,6 @@ use serde_json::Value;
 use crate::pipeline::Pipeline;
 use itertools::Itertools;
 
-pub fn one(file_path: &str) -> Pipeline {
-    let content = fs::read_to_string(file_path).expect("Could not read file");
-    let data: Value = serde_json::from_str(&content).expect("JSON was not well-formatted");
-    Pipeline { data }
-}
-
-pub fn from_fake_response(file_path: &str) -> Vec<Pipeline> {
-    let content = fs::read_to_string(file_path).expect("Could not read file");
-    parse(&content)
-}
-
 pub fn parse(content: &String) -> Vec<Pipeline> {
     let parsed: Value = serde_json::from_str(&content).expect("JSON was not well-formatted");
 
@@ -48,11 +37,11 @@ fn latest_build_of(pipelines: Vec<Pipeline>) -> Pipeline {
 
 #[cfg(test)]
 mod tests {
-    use crate::pipeline_loader;
+    use crate::pipeline_parser;
 
     #[test]
     fn parse_from() {
-        let pipelines = pipeline_loader::from_fake_response("fixture/pipelines.json");
+        let pipelines = pipeline_parser::from_fake_response("fixture/pipelines.json");
         assert_eq!(5, pipelines.len());
         for pipeline in pipelines {
             println!("{:?}", pipeline.to_xml());

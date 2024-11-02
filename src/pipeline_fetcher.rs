@@ -1,5 +1,5 @@
 use crate::pipeline::Pipeline;
-use crate::pipeline_loader;
+use crate::pipeline_parser;
 
 pub async fn fetch(repo_id: &str, token: &str) -> Vec<Pipeline> {
     let base_url = "https://api.bitbucket.org/2.0/repositories";
@@ -15,6 +15,6 @@ pub async fn fetch(repo_id: &str, token: &str) -> Vec<Pipeline> {
         .await.unwrap().text()
         .await.unwrap();
 
-    pipeline_loader::parse(&body)
+    pipeline_parser::parse(&body)
 }
 

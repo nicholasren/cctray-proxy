@@ -146,49 +146,49 @@ impl Pipeline {
 
 #[cfg(test)]
 mod tests {
-    use crate::pipeline_loader;
+    use crate::pipeline_parser;
 
     #[test]
     fn parse_from() {
-        let pipelines = pipeline_loader::from_fake_response("fixture/pipelines.json");
+        let pipelines = pipeline_parser::from_fake_response("fixture/pipelines.json");
         assert_eq!(100, pipelines.len());
     }
 
     //BEGIN of main pipeline
     #[test]
     fn pipeline_type() {
-        let pipeline = pipeline_loader::one("fixture/bitbucket_pipeline_main.json");
+        let pipeline = pipeline_parser::one("fixture/bitbucket_pipeline_main.json");
 
         assert_eq!(pipeline.pipeline_type(), "main");
     }
 
     #[test]
     fn name() {
-        let pipeline = pipeline_loader::one("fixture/bitbucket_pipeline_main.json");
+        let pipeline = pipeline_parser::one("fixture/bitbucket_pipeline_main.json");
         assert_eq!(pipeline.name(), "[adr-backup-monitoring] pipeline:main");
     }
 
     #[test]
     fn repo_name() {
-        let pipeline = pipeline_loader::one("fixture/bitbucket_pipeline_main.json");
+        let pipeline = pipeline_parser::one("fixture/bitbucket_pipeline_main.json");
         assert_eq!(pipeline.repo_name(), "adr-backup-monitoring");
     }
 
     #[test]
     fn status() {
-        let pipeline = pipeline_loader::one("fixture/bitbucket_pipeline_main.json");
+        let pipeline = pipeline_parser::one("fixture/bitbucket_pipeline_main.json");
         assert_eq!(pipeline.last_build_status(), "Building");
     }
 
     #[test]
     fn to_xml() {
-        let pipeline = pipeline_loader::one("fixture/bitbucket_pipeline_main.json");
+        let pipeline = pipeline_parser::one("fixture/bitbucket_pipeline_main.json");
         println!("{}", pipeline.to_xml());
     }
 
     #[test]
     fn supports() {
-        let pipeline = pipeline_loader::one("fixture/bitbucket_pipeline_main.json");
+        let pipeline = pipeline_parser::one("fixture/bitbucket_pipeline_main.json");
         assert!(pipeline.supported())
     }
 }
