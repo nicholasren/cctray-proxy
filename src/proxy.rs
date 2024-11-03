@@ -8,7 +8,7 @@ use crate::pipeline::model::Pipeline;
 use crate::config::Config;
 
 pub struct ProxyServer {
-    pub addr: &'static str,
+    pub address: &'static str,
     pub configs: Vec<Config>,
 }
 impl ProxyServer {
@@ -19,7 +19,7 @@ impl ProxyServer {
                 get(handler).layer(CacheLayer::with_lifespan(60)),
             ).with_state(self.configs.clone());
 
-        let listener = tokio::net::TcpListener::bind(&self.addr).await.unwrap();
+        let listener = tokio::net::TcpListener::bind(&self.address).await.unwrap();
         axum::serve(listener, app).await.unwrap();
     }
 }

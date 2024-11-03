@@ -12,7 +12,8 @@ pub fn has_value_by_two_keys(target: &Value, key1: &str, key2: &str, expected: &
 }
 
 pub fn has_value_by_three_keys(target: &Value, key1: &str, key2: &str, key3: &str, expected: &str) -> bool {
-    let value = target.get(key1)
+    let value = target
+        .get(key1)
         .and_then(|v| v.get(key2))
         .and_then(|v| v.get(key3))
         .and_then(|v| v.as_str());
