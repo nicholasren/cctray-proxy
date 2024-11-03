@@ -14,7 +14,7 @@ pub struct Cli {
 #[tokio::main]
 async fn main() {
     let args = Cli::parse();
-    let configs = config::load(args.repo_config_path);
+    let configs = config::load(args.repo_config_path.to_str().unwrap());
 
     let addr = "0.0.0.0:3000";
     let server = ProxyServer {
