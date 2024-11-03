@@ -1,9 +1,9 @@
 use axum::{routing::get, Router};
 use axum::extract::State;
 use axum::response::IntoResponse;
-use crate::pipeline_fetcher;
-use crate::pipeline::Pipeline;
 use axum_response_cache::CacheLayer;
+use crate::pipeline::fetcher;
+use crate::pipeline::model::Pipeline;
 use crate::config::Config;
 
 pub struct ProxyServer {
@@ -26,7 +26,7 @@ async fn handler(configs: State<Vec<Config>>) -> impl IntoResponse {
     let mut all: Vec<Pipeline> = vec![];
 
     for config in configs.iter() {
-        let pipelines = pipeline_fetcher::fetch(&config.id, &config.bearer_token).await;
+        let pipelines = fetcher::fetch(&config.id, &config.bearer_token).await;
         all.extend(pipelines);
     }
 

@@ -1,7 +1,6 @@
-use std::fs;
-use serde_json::Value;
-use crate::pipeline::Pipeline;
+use crate::pipeline::model::Pipeline;
 use itertools::Itertools;
+use serde_json::Value;
 
 pub fn parse(content: &String) -> Vec<Pipeline> {
     let parsed: Value = serde_json::from_str(&content).expect("JSON was not well-formatted");
@@ -37,11 +36,11 @@ fn latest_build_of(pipelines: Vec<Pipeline>) -> Pipeline {
 
 #[cfg(test)]
 mod tests {
-    use crate::pipeline_parser;
+    use crate::pipeline::test_data_provider;
 
     #[test]
     fn parse_from() {
-        let pipelines = pipeline_parser::from_fake_response("fixture/pipelines.json");
+        let pipelines = test_data_provider::_from_fake_response("fixture/pipelines.json");
         assert_eq!(5, pipelines.len());
         for pipeline in pipelines {
             println!("{:?}", pipeline.to_xml());
