@@ -8,19 +8,19 @@ use crate::proxy::ProxyServer;
 
 #[derive(Parser)]
 pub struct Cli {
-    config_path: std::path::PathBuf,
+    repo_config_path: std::path::PathBuf,
 }
 
 #[tokio::main]
 async fn main() {
     let args = Cli::parse();
-    println!("Using config path: {:?}", args.config_path);
-    let configs = config::load();
+    let configs = config::load(args.repo_config_path);
 
+    let addr = "0.0.0.0:3000";
     let server = ProxyServer {
-        addr: "0.0.0.0:3000",
+        addr,
         configs,
     };
-
+    println!("CCTray feed is available via http://{}/cctray.xml", addr);
     server.start().await;
 }
