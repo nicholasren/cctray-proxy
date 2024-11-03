@@ -1,6 +1,7 @@
 use crate::pipeline::model::Pipeline;
 
 pub async fn fetch(repo_id: &str, token: &str) -> Vec<Pipeline> {
+    println!("Working on pipeline status for repo: {}", repo_id);
     let base_url = "https://api.bitbucket.org/2.0/repositories";
 
     let request_url = format!("{base_url}/{repo_id}/pipelines/?pagelen={page_length}&&sort=-created_on",

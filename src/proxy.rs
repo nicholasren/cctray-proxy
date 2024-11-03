@@ -47,7 +47,6 @@ async fn fetch_concurrently(configs: Vec<Config>) -> Vec<Pipeline> {
             tokio::spawn(async move {
                 let repo_id = config.id.clone();
                 let bearer_token = config.bearer_token.clone();
-                println!("working on pipeline status for repo: {}", &config.id);
                 fetcher::fetch(&repo_id, &bearer_token).await.clone()
             })
         });
