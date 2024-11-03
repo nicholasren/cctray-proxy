@@ -22,6 +22,13 @@ impl Pipeline {
     pub fn repo_name(self: &Pipeline) -> &str {
         crate::json::string_value_by_two_keys(&self.data, "repository", "name")
     }
+    pub fn repo_full_name(self: &Pipeline) -> &str {
+        crate::json::string_value_by_two_keys(&self.data, "repository", "full_name")
+    }
+    pub fn build_number(self: &Pipeline) -> String {
+        let value = &self.data["build_number"].as_u64().unwrap();
+        value.to_string()
+    }
     pub fn name(self: &Pipeline) -> String {
         let target = &self.data["target"];
         if self.pipeline_type() == "main" {
@@ -72,8 +79,8 @@ impl Pipeline {
     pub fn build_time_in_string(self: &Pipeline) -> &str {
         self.data["created_on"].as_str().unwrap()
     }
-    pub fn web_url(self: &Pipeline) -> &str {
-        ""
+    pub fn web_url(self: &Pipeline) -> String {
+        format!("https://bitbucket.org/{}/pipelines/results/{}", self.repo_full_name(), self.build_number())
     }
     pub fn supported(self: &Pipeline) -> bool {
         self.pipeline_type() != "unknown"
@@ -175,5 +182,10 @@ mod tests {
     fn supports() {
         let pipeline = test_data_provider::_one("fixture/bitbucket_pipeline_main.json");
         assert!(pipeline.supported())
+    }
+    #[test]
+    fn web_url() {
+        let pipeline = test_data_provider::_one("fixture/bitbucket_pipeline_main.json");
+        assert_eq!(pipeline.web_url(), "https://bitbucket.org/atlassian/adr-backup-monitoring/pipelines/results/19442");
     }
 }

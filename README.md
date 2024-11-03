@@ -2,6 +2,7 @@ CCTray Proxy
 ---
 
 ### Release
+
 ```bash
 
 cargo build --release
@@ -12,4 +13,3 @@ cargo build --release
 ```bash
 cctray-proxy <path-to-repo-config>
 ```
-

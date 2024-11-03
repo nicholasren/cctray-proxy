@@ -2,7 +2,6 @@ mod config;
 mod pipeline;
 mod json;
 mod proxy;
-
 use clap::Parser;
 use crate::proxy::ProxyServer;
 
