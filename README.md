@@ -15,5 +15,5 @@ Refer to [example config](./config/example-config.json)
 
 2. Run the following command
 ```bash
-~/Applications/cctray-proxy <path-to-repo-config>
+/Applications/cctray-proxy <path-to-repo-config>
 ```
