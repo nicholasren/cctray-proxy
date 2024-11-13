@@ -1,0 +1,6 @@
+[
+  {
+    "id": "my-company/my-repository",
+    "bearer_token": "<pipeline read-only token>"
+  }
+]
