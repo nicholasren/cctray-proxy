@@ -1,17 +1,6 @@
 CCTray Proxy
 ---
 
-### Release
-
-```bash
-
-cargo build --release
-```
-
-#### Release to local bin
-```bash
-mv target/release/cctray-proxy $HOME/local/bin
-```
 
 ### How to run it?
 
